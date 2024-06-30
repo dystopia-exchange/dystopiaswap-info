@@ -12,6 +12,7 @@ import umaLogo from '../../assets/uma.png'
 import clamLogo from '../../assets/clam.png'
 import tetuQiLogo from '../../assets/tetuQi.svg'
 import dystopialogo from '../../assets/dystopialogo.png'
+import DEFAULT_TOKEN_LIST from '../../constants/token_list.json'
 
 const BAD_IMAGES = {}
 
@@ -94,10 +95,16 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
       'https://2173993027-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F9HhCCgYexXiRot0OWAJY%2Fuploads%2FQ41zhb0z0oV5WI1zpKEg%2FUSD%2B%20logo.png?alt=media&token=533d9ed9-6904-4f45-82a3-2c9e1060a3b5'
   } else if (address?.toLowerCase() === '0x17e9c5b37283ac5fbe527011cec257b832f03eb3'.toLowerCase()) {
     path = 'https://app.sphere.finance/static/media/sphere_logo_icon.2cbc48ec.svg'
+  } else if (address?.toLowerCase() === '0x2e1ad108ff1d8c782fcbbb89aad783ac49586756'.toLowerCase()) {
+    path = 'https://assets.coingecko.com/coins/images/3449/small/tusd.png'
   } else {
-    path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/assets/${isAddress(
-      address
-    )}/logo.png`
+    const list = DEFAULT_TOKEN_LIST.tokens.filter((x) => (address && x.address.toLowerCase() === address?.toLowerCase()))
+    path =
+      list.length > 0
+        ? list[0].logoURI
+        : `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/assets/${isAddress(
+            address
+          )}/logo.png`
   }
 
   return (
